@@ -26,5 +26,5 @@ void main() {
 
   // CONCATENAÇÃO DE VARIAVEIS
   print('Código: $codigo');
-  print('Produto de codigo ' + codigo.toString() + ' é ' + nome + ' e o valor do produto é ' + preco.toString());
+  print('Produto de codigo $codigo é $nome e o valor do produto é $preco');
 }
