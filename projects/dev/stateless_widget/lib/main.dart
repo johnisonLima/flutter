@@ -12,8 +12,6 @@ class App extends StatelessWidget {
 
   const App(this.title, this.valor, {super.key});
 
-  // const App(String s, {Key? key, this.title, this.valor}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +25,7 @@ class App extends StatelessWidget {
             ),
             body: Center(
                 child: Text(
-              'Olá, mundo!, valor é $valor',
+              'Olá, mundo! valor é $valor',
               style: const TextStyle(
                 fontSize: 50,
                 color: Colors.cyan,
