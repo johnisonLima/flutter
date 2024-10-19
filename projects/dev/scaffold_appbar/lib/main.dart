@@ -20,9 +20,23 @@ class _AppState extends State<App> {
           title: const Text('Aplicativo Scarffold'),
           backgroundColor: Colors.blueGrey.shade200,
         ),
-        body: const Center(
-          child: Text('Corpo do Aplicativo'),
-        ),
+        body: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Center(
+              child: Text(
+                'Corpo do Aplicativo',
+                style: TextStyle(fontSize: 20),
+                ),
+            ),
+            Center(
+              child: Text(
+                'Meu aplicativo',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ],
+        )        
       )
     );
   }
