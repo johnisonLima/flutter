@@ -20,14 +20,13 @@ class _AppState extends State<App> {
           title: const Text('Imagens', style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.lightBlueAccent,
         ),
-        body: Image.asset(
-          'assets/images/cachorro.png', 
-          // width: 200,
+        body: Image.network(
+          'https://adimax.com.br/wp-content/uploads/2022/05/cuidados-filhote-de-cachorro.jpg',
           fit: BoxFit.cover,
           width: double.infinity,
           height: double.infinity,
-        ),
-      )
+        )
+      ),
     );
   }
 }
