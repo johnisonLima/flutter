@@ -9,8 +9,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Tela1(),
+    return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const Tela1(),
+        '/tela2': (context) => const Tela2()
+      },
     );
   }
 }
@@ -32,12 +36,7 @@ class Tela1 extends StatelessWidget {
         body: Center(
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) {
-                  return const Tela2();
-                })
-              );
+              Navigator.pushNamed(context, '/tela2');
             },
             child: const Text('Ir para a tela 2'),
           ),
