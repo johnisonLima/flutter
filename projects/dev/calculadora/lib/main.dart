@@ -12,7 +12,10 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  String numero = 'Número';
+  String numero = '0';
+
+  double primeiroNumero = 0.0;
+  String operacao = '';
 
   void calcular(String tecla) {
     switch (tecla) {
@@ -26,11 +29,85 @@ class _AppState extends State<App> {
       case '7':
       case '8':
       case '9':
-        setState(() => numero += tecla);
+      case '.':
+        setState(() {
+          numero += tecla;
+
+          if (!numero.contains('.')) {
+            int numeroInt = int.parse(numero);
+            numero = numeroInt.toString();
+          }
+        });
+
         break;
-        
+
+      case '+':
+      case '-':
+      case 'x':
+      case '/':
+        operacao = tecla;
+        primeiroNumero = double.parse(numero);
+        numero = '0';
+
+        break;
+
+      case '=':
+        double resultado = 0.0;
+
+        switch (operacao) {
+          case '+':
+            resultado = primeiroNumero + double.parse(numero);
+            break;
+
+          case '-':
+            resultado = primeiroNumero - double.parse(numero);
+            break;
+
+          case '/':
+            if (double.parse(numero) * 1 == 0) {
+              return;
+            }
+            resultado = primeiroNumero / double.parse(numero);
+            break;
+
+          case 'x':
+            resultado = primeiroNumero * double.parse(numero);
+            break;
+
+          default:
+            break;
+        }
+
+        String resultadoString = resultado.toString();
+        dynamic resultadoFormatado;
+
+        List<String> resultadoPartes = resultadoString.split('.');
+        if (int.parse(resultadoPartes[1]) * 1 == 0) {
+          resultadoFormatado = int.parse(resultadoPartes[0]);
+        } else {
+          resultadoFormatado = resultado;
+        }
+
+        setState(() {
+          numero = resultadoFormatado.toString();
+        });
+
+        break;
+
       case 'AC':
-        setState(() => numero = '0' );        
+        setState(() => numero = '0');
+        break;
+
+      case '<x':
+        setState(() {
+          if (numero.isNotEmpty) {
+            numero = numero.substring(0, numero.length - 1);
+          } 
+          else {
+            numero = '0';
+          }
+        });
+
         break;
 
       default:
@@ -78,10 +155,7 @@ class _AppState extends State<App> {
               const Text(' '),
               GestureDetector(
                 onTap: () => calcular('<x'),
-                child: const Text(
-                  '<X',
-                  style: TextStyle(fontSize: 48),
-                ),
+                child: Image.asset('assets/images/arrow_back.png'),
               ),
             ],
           ),
@@ -95,7 +169,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('8'),
                 child: const Text(
@@ -103,7 +176,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('9'),
                 child: const Text(
@@ -111,7 +183,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('/'),
                 child: const Text(
@@ -119,7 +190,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
             ],
           ),
           Row(
@@ -132,7 +202,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('5'),
                 child: const Text(
@@ -140,7 +209,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('6'),
                 child: const Text(
@@ -148,11 +216,10 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
-                onTap: () => calcular('X'),
+                onTap: () => calcular('x'),
                 child: const Text(
-                  'X',
+                  'x',
                   style: TextStyle(fontSize: 48),
                 ),
               ),
@@ -168,7 +235,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('2'),
                 child: const Text(
@@ -176,7 +242,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('3'),
                 child: const Text(
@@ -184,7 +249,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('-'),
                 child: const Text(
@@ -192,7 +256,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
             ],
           ),
           Row(
@@ -205,7 +268,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('.'),
                 child: const Text(
@@ -213,7 +275,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('='),
                 child: const Text(
@@ -221,7 +282,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
               GestureDetector(
                 onTap: () => calcular('+'),
                 child: const Text(
@@ -229,7 +289,6 @@ class _AppState extends State<App> {
                   style: TextStyle(fontSize: 48),
                 ),
               ),
-
             ],
           ),
           const Text('Coluna 6 '),
