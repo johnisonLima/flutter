@@ -4,6 +4,13 @@ void main() {
   runApp(const App());
 }
 
+class Argumentos {
+  final int id;
+  final String nome;
+
+  Argumentos(this.id, this.nome);
+}
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -13,7 +20,7 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const Tela1(),
-        '/tela2': (context) => const Tela2()
+        Tela2.rountName: (context) => const Tela2(),
       },
     );
   }
@@ -24,39 +31,46 @@ class Tela1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int valor = 1;
+
     return MaterialApp(
         home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Tela 1',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.lightBlueAccent,
+      appBar: AppBar(
+        title: const Text(
+          'Tela 1',
+          style: TextStyle(color: Colors.white),
         ),
-        body: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/tela2');
-            },
-            child: const Text('Ir para a tela 2'),
-          ),
+        backgroundColor: Colors.lightBlueAccent,
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/tela2',
+                arguments: Argumentos(valor, 'Johnison $valor'));
+            valor++;
+          },
+          child: const Text('Ir para a tela 2'),
         ),
-      )
-    );
+      ),
+    ));
   }
 }
 
 class Tela2 extends StatelessWidget {
   const Tela2({super.key});
 
+  static const rountName = '/tela2';
+
   @override
   Widget build(BuildContext context) {
+    final argumentos = ModalRoute.of(context)!.settings.arguments as Argumentos;
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Tela 2',
-            style: TextStyle(color: Colors.white),
+          title: Text(
+            'Tela 2 ${argumentos.nome}',
+            style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: Colors.red,
         ),
