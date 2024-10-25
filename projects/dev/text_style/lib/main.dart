@@ -13,12 +13,20 @@ class App extends StatelessWidget {
 
       theme: ThemeData(
         fontFamily: 'imagine',
+        brightness: Brightness.light,
+        primaryColor: Colors.red,
+        scaffoldBackgroundColor: Colors.red,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.red[900]
+        )
       ),
 
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Aplicativo fonte externa', style: TextStyle(color: Colors.white),),
-          backgroundColor: Colors.lightBlue,
+          title: const Text(
+            'Aplicativo fonte externa', 
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         body: Center(
           child: Text(
