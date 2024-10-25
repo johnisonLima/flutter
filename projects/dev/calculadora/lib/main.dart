@@ -13,6 +13,8 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   String numero = '0';
+  double espace = 15.0;
+  int maximoNumerosTela = 6;
 
   double primeiroNumero = 0.0;
   String operacao = '';
@@ -31,11 +33,13 @@ class _AppState extends State<App> {
       case '9':
       case '.':
         setState(() {
-          numero += tecla;
+          if (numero.length <= maximoNumerosTela) {
+            numero += tecla;
 
-          if (!numero.contains('.')) {
-            int numeroInt = int.parse(numero);
-            numero = numeroInt.toString();
+            if (!numero.contains('.')) {
+              int numeroInt = int.parse(numero);
+              numero = numeroInt.toString();
+            }
           }
         });
 
@@ -102,8 +106,7 @@ class _AppState extends State<App> {
         setState(() {
           if (numero.isNotEmpty) {
             numero = numero.substring(0, numero.length - 1);
-          } 
-          else {
+          } else {
             numero = '0';
           }
         });
@@ -129,170 +132,146 @@ class _AppState extends State<App> {
         ),
         backgroundColor: Colors.lightBlueAccent,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                numero,
-                style: const TextStyle(fontSize: 72),
+      body: Container(
+        color: Colors.grey[800],
+        padding: EdgeInsets.only(left: espace, right: espace),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.blue[50],
+                borderRadius: BorderRadius.circular(30),
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              GestureDetector(
-                onTap: () => calcular('AC'),
-                child: const Text(
-                  'AC',
-                  style: TextStyle(fontSize: 48),
+              padding: EdgeInsets.only(left: espace, right: espace),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    numero,
+                    style: TextStyle(
+                        fontSize: 100,
+                        fontFamily: 'ds-dig',
+                        color: Colors.grey[900]),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[700],
+                borderRadius: BorderRadius.circular(30),
+              ),
+              padding: EdgeInsets.only(bottom: espace, top: espace),
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () => calcular('AC'),
+                      child: Image.asset('assets/images/tecla-ce.png'),
+                    ),
+                    const Text(' '),
+                    const Text(' '),
+                    GestureDetector(
+                      onTap: () => calcular('<x'),
+                      child: Image.asset('assets/images/tecla-apagar.png'),
+                    ),
+                  ],
                 ),
-              ),
-              const Text(' '),
-              const Text(' '),
-              GestureDetector(
-                onTap: () => calcular('<x'),
-                child: Image.asset('assets/images/arrow_back.png'),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              GestureDetector(
-                onTap: () => calcular('7'),
-                child: const Text(
-                  '7',
-                  style: TextStyle(fontSize: 48),
+                SizedBox(height: espace),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () => calcular('7'),
+                      child: Image.asset('assets/images/tecla-sete.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('8'),
+                      child: Image.asset('assets/images/tecla-oito.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('9'),
+                      child: Image.asset('assets/images/tecla-nove.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('/'),
+                      child: Image.asset('assets/images/tecla-divisao.png'),
+                    ),
+                  ],
                 ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('8'),
-                child: const Text(
-                  '8',
-                  style: TextStyle(fontSize: 48),
+                SizedBox(height: espace),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () => calcular('4'),
+                      child: Image.asset('assets/images/tecla-quatro.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('5'),
+                      child: Image.asset('assets/images/tecla-cinco.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('6'),
+                      child: Image.asset('assets/images/tecla-seis.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('x'),
+                      child: Image.asset('assets/images/tecla-vezes.png'),
+                    ),
+                  ],
                 ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('9'),
-                child: const Text(
-                  '9',
-                  style: TextStyle(fontSize: 48),
+                SizedBox(height: espace),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () => calcular('1'),
+                      child: Image.asset('assets/images/tecla-um.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('2'),
+                      child: Image.asset('assets/images/tecla-dois.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('3'),
+                      child: Image.asset('assets/images/tecla-tres.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('-'),
+                      child: Image.asset('assets/images/tecla-menos.png'),
+                    ),
+                  ],
                 ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('/'),
-                child: const Text(
-                  '/',
-                  style: TextStyle(fontSize: 48),
+                SizedBox(height: espace),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () => calcular('0'),
+                      child: Image.asset('assets/images/tecla-zero.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('.'),
+                      child: Image.asset('assets/images/tecla-ponto.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('='),
+                      child: Image.asset('assets/images/tecla-igual.png'),
+                    ),
+                    GestureDetector(
+                      onTap: () => calcular('+'),
+                      child: Image.asset('assets/images/tecla-mais.png'),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              GestureDetector(
-                onTap: () => calcular('4'),
-                child: const Text(
-                  '4',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('5'),
-                child: const Text(
-                  '5',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('6'),
-                child: const Text(
-                  '6',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('x'),
-                child: const Text(
-                  'x',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              GestureDetector(
-                onTap: () => calcular('1'),
-                child: const Text(
-                  '1',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('2'),
-                child: const Text(
-                  '2',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('3'),
-                child: const Text(
-                  '3',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('-'),
-                child: const Text(
-                  '-',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              GestureDetector(
-                onTap: () => calcular('0'),
-                child: const Text(
-                  '0',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('.'),
-                child: const Text(
-                  '.',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('='),
-                child: const Text(
-                  '=',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-              GestureDetector(
-                onTap: () => calcular('+'),
-                child: const Text(
-                  '+',
-                  style: TextStyle(fontSize: 48),
-                ),
-              ),
-            ],
-          ),
-          const Text('Coluna 6 '),
-        ],
+              ]),
+            ),
+            const Text(' '),
+          ],
+        ),
       ),
     ));
   }
