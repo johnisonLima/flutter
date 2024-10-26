@@ -7,12 +7,10 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.red[500],
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.blue,
-        )
-      ),
-      
+          scaffoldBackgroundColor: Colors.red[500],
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.blue,
+          )),
       home: Scaffold(
         appBar: AppBar(
           title: const Center(
@@ -22,22 +20,30 @@ class Homepage extends StatelessWidget {
             ),
           ),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Image.asset(
-                'assets/images/logo.png',
-                width: 300,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  'Jogar',
-                  style: TextStyle(fontSize: 50),
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 300,
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/Quiz');
+                    },
+                    child: const Text(
+                      'Jogar',
+                      style: TextStyle(fontSize: 50),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
