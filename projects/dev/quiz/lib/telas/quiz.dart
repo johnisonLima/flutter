@@ -17,11 +17,31 @@ class _QuizState extends State<Quiz> {
   @override
   Widget build(BuildContext context) {
     quiz.shuffle();
-    
+
+    quiz.forEach((elemento) {
+      int alternativaCorreta = elemento['alternativa_correta'];
+
+      List respostas = elemento['respostas'];
+
+      String respostaCorreta = elemento['respostas'][alternativaCorreta - 1];
+
+      respostas.shuffle();
+
+      int i = 1;
+      respostas.forEach((elemento) {
+        if (elemento == respostaCorreta) {
+          alternativaCorreta = i;
+        }
+        i++;
+      });
+      elemento['alternativa_correta'] = alternativaCorreta;
+    });
+
     void respondeu(int respostaNumero) {
       setState(() {
         if (quiz[perguntaNumero - 1]['alternativa_correta'] == respostaNumero) {
           acertos++;
+          print(acertos);
         } else {
           erros++;
         }
