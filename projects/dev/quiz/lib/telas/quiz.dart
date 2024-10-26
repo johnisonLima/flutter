@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/telas/resultado.dart';
+import 'package:quiz/quizdados.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -15,43 +16,8 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
-    List quiz = [
-      {
-        "pergunta": "Quem descobriu o Brasil?",
-        "respostas": [
-          "Joana D'Arque",
-          "Pedro Alvares Cabral",
-          "Tiradentes",
-          "Dom Pedro II"
-        ],
-        "alternativa_correta": 2
-      }
-    ];
-
-    quiz.add({
-      "pergunta": "Flutter é?",
-      "respostas": [
-        "Uma liguaguem",
-        "Um aplicativo",
-        "Um SDK",
-        "Um notebook",
-      ],
-      "alternativa_correta": 3
-    });
-
-    for (int i = 3; i <= 20; i++) {
-      quiz.add({
-        "pergunta": "Pergnta $i",
-        "respostas": [
-          "Resposta 1",
-          "Resposta 2",
-          "Resposta 3",
-          "Resposta 4",
-        ],
-        "alternativa_correta": 1
-      });
-    }
-
+    quiz.shuffle();
+    
     void respondeu(int respostaNumero) {
       setState(() {
         if (quiz[perguntaNumero - 1]['alternativa_correta'] == respostaNumero) {
@@ -117,7 +83,7 @@ class _QuizState extends State<Quiz> {
                   height: 60.0,
                   child: ElevatedButton(
                       onPressed: () {
-                        respondeu(1);
+                        respondeu(2);
                       },
                       child: Text(
                         quiz[perguntaNumero - 1]["respostas"][1],
@@ -129,7 +95,7 @@ class _QuizState extends State<Quiz> {
                   height: 60.0,
                   child: ElevatedButton(
                       onPressed: () {
-                        respondeu(1);
+                        respondeu(3);
                       },
                       child: Text(
                         quiz[perguntaNumero - 1]["respostas"][2],
@@ -141,7 +107,7 @@ class _QuizState extends State<Quiz> {
                   height: 60.0,
                   child: ElevatedButton(
                       onPressed: () {
-                        respondeu(1);
+                        respondeu(4);
                       },
                       child: Text(
                         quiz[perguntaNumero - 1]["respostas"][3],
