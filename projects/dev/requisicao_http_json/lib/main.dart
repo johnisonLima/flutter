@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 void main() async {
-  Uri uri = Uri.https('jsonplaceholder.typicode.com', '/todos/1');
+  Uri uri = Uri.https('jsonplaceholder.typicode.com', '/todos/');
 
   final future = http.get(uri);
 
@@ -11,11 +11,12 @@ void main() async {
     if (response.statusCode == 200) {
       print('Página carregada.');
 
-      Map<String, dynamic> dados = jsonDecode(response.body);
+      var list = jsonDecode(response.body) as List;
 
-      print(dados);
-      print(dados['title']);
-      
+      list.forEach((elemento) {
+        print(elemento['id']);
+      });
+
     } else {
       print('Erro.');
     }
