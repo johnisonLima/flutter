@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+enum Genero{
+  masculino,
+  femenino,
+  outro
+}
+
 void main() {
   runApp(const App());
 }
@@ -12,17 +18,19 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  String email = '';
+  String senha = '';
+  bool isChecked = false;
+  Genero genero = Genero.femenino;
+
   @override
   Widget build(BuildContext context) {
-    String email = '';
-    String senha = '';
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Center(
             child: Text(
-              'Página de Login',
+              'Página de Cadastro',
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -56,11 +64,78 @@ class _AppState extends State<App> {
                   senha = text;
                 },
               ),
+
+
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Radio(                
+                        value: Genero.femenino, 
+                        groupValue: genero, 
+                        onChanged: (Genero? value){
+                          setState(() {
+                            genero = value!;
+                          });
+                        }
+                      ),
+                      const Text('Femenino'),
+                    ],
+                  ),
+
+                  Row(
+                    children: [
+                      Radio(                
+                        value: Genero.masculino, 
+                        groupValue: genero, 
+                        onChanged: (Genero? value){
+                          setState(() {
+                            genero = value!;
+                          });
+                        }
+                      ),
+                      const Text('Masculino'),
+                    ],
+                  ),
+
+                  Row(
+                    children: [
+                      Radio(                
+                        value: Genero.outro, 
+                        groupValue: genero, 
+                        onChanged: (Genero? value){
+                          setState(() {
+                            genero = value!;
+                          });
+                        }
+                      ),
+                      const Text('Outro'),
+                    ],
+                  ),
+                ],
+              ),
+
+
+
+              Row(
+                children: [
+                  Checkbox(
+                      value: isChecked,
+                      onChanged: (bool? checked) {
+                        setState(() {
+                          isChecked = checked!;
+                        });
+                      }),
+                  const Text('Concordo com os termos de uso do App')
+                ],
+              ),
               const Text('Esqueceu sua senha?'),
               ElevatedButton(
                 onPressed: () {
                   print('Email $email');
                   print('Senha $senha');
+                  print('Aceito termos $isChecked');
+                  print('Gênero $genero');
                 },
                 child: const Text('Entrar'),
               ),
