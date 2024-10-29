@@ -12,14 +12,10 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  List<String> listaProdutos = [];
+  List<String> listaProdutos = List<String>.generate(20, (i) => 'Produto $i');
 
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i <= 100; i++) {
-      listaProdutos.add('Produto $i');
-    }
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
