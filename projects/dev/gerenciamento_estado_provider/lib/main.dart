@@ -28,25 +28,27 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Center(
-            child: Text(
-              'Provider State',
-              style: TextStyle(color: Colors.black),
+      home: Consumer<Pessoa>(
+        builder: (context, pessoa, child) => Scaffold(
+          appBar: AppBar(
+            title: const Center(
+              child: Text(
+                'Provider State',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           ),
-        ),
-        body: Center(
-          child: Text(
-            '${(context).select((Pessoa p) => p.nome)} tem ${(context).select((Pessoa p) => p.idade)} anos de idade',
-            style: const TextStyle(fontSize: 30),
+          body: Center(
+            child: Text(
+              '${pessoa.nome} tem ${pessoa.idade} anos de idade',
+              style: const TextStyle(fontSize: 30),
+            ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Provider.of<Pessoa>(context, listen: false).incrementaIdade();
-          },
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              pessoa.incrementaIdade();
+            },
+          ),
         ),
       ),
     );
