@@ -3,18 +3,23 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    Provider(
+    ChangeNotifierProvider (
       create: (_) => Pessoa(nome: 'José', idade: 45),
       child: const App(),
     ),
   );
 }
 
-class Pessoa {
+class Pessoa with ChangeNotifier {
   String? nome;
   int? idade;
 
   Pessoa({this.nome, this.idade});
+
+  void incrementaIdade() {
+    idade = idade! + 1;
+    notifyListeners();
+  }
 }
 
 class App extends StatelessWidget {
@@ -37,6 +42,11 @@ class App extends StatelessWidget {
             '${(context).select((Pessoa p) => p.nome)} tem ${(context).select((Pessoa p) => p.idade)} anos de idade',
             style: const TextStyle(fontSize: 30),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Provider.of<Pessoa>(context, listen: false).incrementaIdade();
+          },
         ),
       ),
     );
