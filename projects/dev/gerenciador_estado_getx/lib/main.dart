@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() => runApp(MaterialApp(
-    home: App(),
-  ),
-);
+void main() => runApp(
+      GetMaterialApp(
+        home: App(),
+      ),
+    );
 
 class Controller extends GetxController {
   String titulo = 'Aplicativo GetX TM';
@@ -28,11 +29,17 @@ class App extends StatelessWidget {
         ),
         body: Center(
           child: Column(
-            children: [            
+            children: [
               Center(
                 child: Text(
                   'Clicks: ${controller.valor}',
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(SegundaPagina());
+                },
+                child: const Text('Página Dois'),
               ),
             ],
           ),
@@ -40,6 +47,29 @@ class App extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () => controller.incrementaValor(),
           child: const Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+}
+
+class SegundaPagina extends StatelessWidget {
+  final Controller crtl = Get.find();
+
+  @override
+  Widget build(context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [
+            Text('${crtl.valor}'),
+            ElevatedButton(
+              onPressed: () {
+                Get.to(App());
+              },
+              child: const Text('Voltar'),
+            ),
+          ],
         ),
       ),
     );
