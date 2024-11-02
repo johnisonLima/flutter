@@ -37,7 +37,7 @@ class App extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Get.to(SegundaPagina());
+                  Get.to(() => SegundaPagina(), arguments: ['Dados tela 1', 'Dados tela 1']);
                 },
                 child: const Text('Página Dois'),
               ),
@@ -63,9 +63,10 @@ class SegundaPagina extends StatelessWidget {
         child: Column(
           children: [
             Text('${crtl.valor}'),
+            Text(Get.arguments[0]),
             ElevatedButton(
               onPressed: () {
-                Get.to(App());
+                Get.back();
               },
               child: const Text('Voltar'),
             ),
