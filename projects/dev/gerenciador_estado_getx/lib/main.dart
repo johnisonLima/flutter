@@ -3,7 +3,11 @@ import 'package:get/get.dart';
 
 void main() => runApp(
       GetMaterialApp(
-        home: App(),
+        initialRoute: '/',
+        getPages: [
+          GetPage(name: '/', page: () => App()),
+          GetPage(name: '/tela2', page: () => SegundaPagina()),
+        ],
       ),
     );
 
@@ -37,7 +41,8 @@ class App extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Get.to(() => SegundaPagina(), arguments: ['Dados tela 1', 'Dados tela 1']);
+                  Get.toNamed('/tela2',
+                      arguments: ['Dados tela 1', 'Dados tela 1']);
                 },
                 child: const Text('Página Dois'),
               ),
